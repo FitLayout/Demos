@@ -65,6 +65,18 @@
 			<groupId>cz.vutbr.fit.layout</groupId>
 			<artifactId>fitlayout-render-puppeteer</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>cz.vutbr.fit.layout</groupId>
+			<artifactId>fitlayout-segm-vips</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cz.vutbr.fit.layout</groupId>
+			<artifactId>fitlayout-segm-bcs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cz.vutbr.fit.layout</groupId>
+			<artifactId>fitlayout-io</artifactId>
+		</dependency>
 	</dependencies>
         
 	<dependencyManagement>
