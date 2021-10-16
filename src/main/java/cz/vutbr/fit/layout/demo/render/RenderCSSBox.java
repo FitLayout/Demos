@@ -1,24 +1,28 @@
 /**
- * RenderPuppeteer.java
+ * RenderCSSBox.java
  *
- * Created on 15. 10. 2021, 20:54:08 by burgetr
+ * Created on 15. 10. 2021, 20:11:59 by burgetr
  */
-package cz.vutbr.fit.layout.demo;
+package cz.vutbr.fit.layout.demo.render;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.xml.sax.SAXException;
+
+import cz.vutbr.fit.layout.cssbox.CSSBoxTreeProvider;
+import cz.vutbr.fit.layout.demo.OutputUtils;
 import cz.vutbr.fit.layout.model.Page;
-import cz.vutbr.fit.layout.puppeteer.PuppeteerTreeProvider;
 
 /**
+ * Renders a page using the CSSBox rendering backend.
  * 
  * @author burgetr
  */
-public class RenderPuppeteer
+public class RenderCSSBox
 {
-    
+
     /**
      * @param args
      */
@@ -28,9 +32,8 @@ public class RenderPuppeteer
             URL url = new URL("http://cssbox.sf.net");
             
             // setup the renderer
-            var renderer = new PuppeteerTreeProvider(url, 1200, 800);
+            var renderer = new CSSBoxTreeProvider(url, 1200, 800);
             renderer.setIncludeScreenshot(false); // we don't need screen shot in this demo
-            renderer.setPersist(3);
             
             // perform page rendering
             Page page = renderer.getPage();
@@ -49,7 +52,7 @@ public class RenderPuppeteer
             System.err.println(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e)  {
+        } catch (SAXException e) {
             e.printStackTrace();
         }
     }

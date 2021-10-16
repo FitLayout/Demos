@@ -6,7 +6,6 @@
 	<groupId>cz.vutbr.fit.layout</groupId>
 	<artifactId>fitlayout-demos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
 
 	<name>FitLayout Demos</name>
 	<description>
@@ -57,10 +56,17 @@
 		</plugins>
 	</build>
 
-	<modules>
-		<module>rendering</module>
-	</modules>
-	
+	<dependencies>
+		<dependency>
+			<groupId>cz.vutbr.fit.layout</groupId>
+			<artifactId>fitlayout-render-cssbox</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cz.vutbr.fit.layout</groupId>
+			<artifactId>fitlayout-render-puppeteer</artifactId>
+		</dependency>
+	</dependencies>
+        
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

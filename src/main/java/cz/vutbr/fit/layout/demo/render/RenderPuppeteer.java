@@ -1,27 +1,31 @@
 /**
- * RenderCSSBox.java
+ * RenderPuppeteer.java
  *
- * Created on 15. 10. 2021, 20:11:59 by burgetr
+ * Created on 15. 10. 2021, 20:54:08 by burgetr
  */
-package cz.vutbr.fit.layout.demo;
+package cz.vutbr.fit.layout.demo.render;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.xml.sax.SAXException;
-
-import cz.vutbr.fit.layout.cssbox.CSSBoxTreeProvider;
+import cz.vutbr.fit.layout.demo.OutputUtils;
 import cz.vutbr.fit.layout.model.Page;
+import cz.vutbr.fit.layout.puppeteer.PuppeteerTreeProvider;
 
 /**
- * Renders a page using 
+ * Renders a page using the Chromium (puppeteer) rendering backend. For running this demo,
+ * the puppeteer backend must be installed properly. See
+ * 
+ * https://github.com/FitLayout/fitlayout-puppeteer
+ * 
+ * for details.
  * 
  * @author burgetr
  */
-public class RenderCSSBox
+public class RenderPuppeteer
 {
-
+    
     /**
      * @param args
      */
@@ -31,8 +35,9 @@ public class RenderCSSBox
             URL url = new URL("http://cssbox.sf.net");
             
             // setup the renderer
-            var renderer = new CSSBoxTreeProvider(url, 1200, 800);
+            var renderer = new PuppeteerTreeProvider(url, 1200, 800);
             renderer.setIncludeScreenshot(false); // we don't need screen shot in this demo
+            renderer.setPersist(3);
             
             // perform page rendering
             Page page = renderer.getPage();
@@ -51,7 +56,7 @@ public class RenderCSSBox
             System.err.println(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SAXException e) {
+        } catch (InterruptedException e)  {
             e.printStackTrace();
         }
     }
