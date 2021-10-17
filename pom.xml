@@ -59,74 +59,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>cz.vutbr.fit.layout</groupId>
-			<artifactId>fitlayout-render-cssbox</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cz.vutbr.fit.layout</groupId>
-			<artifactId>fitlayout-render-puppeteer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cz.vutbr.fit.layout</groupId>
-			<artifactId>fitlayout-segm-vips</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cz.vutbr.fit.layout</groupId>
-			<artifactId>fitlayout-segm-bcs</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>cz.vutbr.fit.layout</groupId>
-			<artifactId>fitlayout-io</artifactId>
+			<artifactId>fitlayout-all</artifactId>
+			<version>${fitlayout.version}</version>
+			<type>pom</type>
 		</dependency>
 	</dependencies>
         
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-core</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-io</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-render-cssbox</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-render-puppeteer</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-segm-base</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-segm-vips</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-segm-bcs</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-storage-rdf</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>cz.vutbr.fit.layout</groupId>
-				<artifactId>fitlayout-tools</artifactId>
-				<version>${fitlayout.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 </project>
