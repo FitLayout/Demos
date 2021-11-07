@@ -7,8 +7,6 @@ package cz.vutbr.fit.layout.demo.workflow;
 
 import java.util.Map;
 
-import cz.vutbr.fit.layout.api.ArtifactService;
-import cz.vutbr.fit.layout.api.ParametrizedOperation;
 import cz.vutbr.fit.layout.api.ServiceManager;
 import cz.vutbr.fit.layout.bcs.BCSProvider;
 import cz.vutbr.fit.layout.cssbox.CSSBoxTreeProvider;
@@ -43,17 +41,17 @@ public class ServiceManagerApp
         ServiceManager manager = createServiceManager(repository);
         
         // call several services to create artifacts
-        Artifact page = applyArtifactService(manager,
+        Artifact page = manager.applyArtifactService(
                 "FitLayout.CSSBox", 
                 Map.of("url", "http://cssbox.sf.net",
                         "width", 1200,
                         "height", 800),
                 null);
-        Artifact atree1 = applyArtifactService(manager,
+        Artifact atree1 = manager.applyArtifactService(
                 "FitLayout.BasicAreas", 
                 Map.of("preserveAuxAreas", false),
                 page);
-        Artifact atree2 = applyArtifactService(manager,
+        Artifact atree2 = manager.applyArtifactService(
                 "FitLayout.VIPS", 
                 Map.of("pDoC", 9),
                 page);
@@ -105,33 +103,6 @@ public class ServiceManagerApp
         if (repo != null)
             sm.setArtifactRepository(repo);
         return sm;
-    }
-    
-    /**
-     * Configures and invokes a service for an input artifact.
-     *  
-     * @param manager the Service manager to be used
-     * @param serviceId the ID of the service to be invoked
-     * @param params A map of service input parametres (depending on the given service)
-     * @param inputArtifact The input artifact to apply the service on (may be {@code null} for services that
-     * do not use input artifacts, e.g. page rendering) 
-     * @return The created output artifact.
-     * @throws IllegalArgumentException when the service with the given ID is not available
-     */
-    public static Artifact applyArtifactService(ServiceManager manager, String serviceId, Map<String, Object> params, Artifact inputArtifact)
-    {
-        ParametrizedOperation op = manager.findParmetrizedService(serviceId);
-        
-        if (op == null)
-            throw new IllegalArgumentException("No such service: " + serviceId);
-        
-        if (!(op instanceof ArtifactService))
-            throw new IllegalArgumentException("Not an ArtifactService: " + serviceId);
-        
-        if (params != null)
-            ServiceManager.setServiceParams(op, params);
-        
-        return ((ArtifactService) op).process(inputArtifact);
     }
 
 }
