@@ -12,7 +12,6 @@ import java.net.URL;
 
 import org.xml.sax.SAXException;
 
-import cz.vutbr.fit.layout.demo.OutputUtils;
 import cz.vutbr.fit.layout.model.Area;
 import cz.vutbr.fit.layout.model.AreaTree;
 import cz.vutbr.fit.layout.model.Page;
@@ -26,6 +25,7 @@ import cz.vutbr.fit.layout.segm.op.SortByPositionOperator;
  * <ul>
  * <li>Sorting boxes by their coordinates
  * <li>Joining boxes that form a single line
+ * <li>Finding significant text flow changes - new lines and horizontal spaces to separate data fields.
  * </ul>
  * 
  * @author burgetr
@@ -112,6 +112,7 @@ public class PDFLayoutAnalyzer
     public static class AreaOutput
     {
         private static final String FIELD_SEPARATOR = " | ";
+        
         private PrintStream out;
         private int lastX = 0;
         private int lastY = 0;
