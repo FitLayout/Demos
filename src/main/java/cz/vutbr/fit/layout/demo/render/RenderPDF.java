@@ -5,13 +5,16 @@
  */
 package cz.vutbr.fit.layout.demo.render;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.xml.sax.SAXException;
 
 import cz.vutbr.fit.layout.demo.OutputUtils;
+import cz.vutbr.fit.layout.io.ArtifactStreamOutput;
 import cz.vutbr.fit.layout.model.Page;
 import cz.vutbr.fit.layout.pdf.PDFBoxTreeProvider;
 
@@ -40,7 +43,8 @@ public class RenderPDF
             URL url = new URL(urlString);
             
             // setup the renderer: we render all pages with the zoom 1.5
-            var renderer = new PDFBoxTreeProvider(url, true, false, 1.5f, 0, Integer.MAX_VALUE);
+            // include the images and the screenshot of the entire page
+            var renderer = new PDFBoxTreeProvider(url, true, true, 1.5f, 0, Integer.MAX_VALUE);
             
             // perform page rendering
             Page page = renderer.getPage();
@@ -54,6 +58,18 @@ public class RenderPDF
             // print boxes
             System.out.println("Text boxes:");
             OutputUtils.printTextBoxes(page.getRoot());
+            
+            // output to PNG (screen shot)
+            OutputStream os = new FileOutputStream("pdf_page.png");
+            ArtifactStreamOutput.outputPNG(page, os);
+            os.close();
+            System.out.println("Output written to pdf_page.png (page screen shot)");
+            
+            // output to PNG (internal model)
+            OutputStream osi = new FileOutputStream("pdf_page_i.png");
+            ArtifactStreamOutput.outputPNGi(page, osi);
+            osi.close();
+            System.out.println("Output written to pdf_page_i.png (internal model of the page)");
             
         } catch (MalformedURLException e) {
             System.err.println(e.getMessage());
