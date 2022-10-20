@@ -97,7 +97,8 @@ public class PDFLayoutAnalyzer
     {
         if (root.isLeaf())
         {
-            out.printArea(root);
+            if (!root.getText().isBlank()) // skip separators and empty boxes
+                out.printArea(root);
         }
         else
         {
