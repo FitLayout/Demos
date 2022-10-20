@@ -16,6 +16,7 @@ import cz.vutbr.fit.layout.model.Area;
 import cz.vutbr.fit.layout.model.AreaTree;
 import cz.vutbr.fit.layout.model.Page;
 import cz.vutbr.fit.layout.pdf.PDFBoxTreeProvider;
+import cz.vutbr.fit.layout.provider.VisualBoxTreeProvider;
 import cz.vutbr.fit.layout.segm.BasicSegmProvider;
 import cz.vutbr.fit.layout.segm.op.FindLineOperator;
 import cz.vutbr.fit.layout.segm.op.SortByPositionOperator;
@@ -56,11 +57,15 @@ public class PDFLayoutAnalyzer
             // 1. perform page rendering
             Page page = renderer.getPage();
             
-            // 2. identify basic visual areas
-            var segm = new BasicSegmProvider(true);
-            AreaTree atree = segm.createAreaTree(page);
+            // 2. restructure the box tree by visual nesting of boxes
+            var visualProvider = new VisualBoxTreeProvider();
+            Page visualPage = (Page) visualProvider.process(page);
             
-            // 3. area tree postprocessing using the built-in FitLayout operators
+            // 3. identify basic visual areas
+            var segm = new BasicSegmProvider(true);
+            AreaTree atree = segm.createAreaTree(visualPage);
+            
+            // 4. area tree postprocessing using the built-in FitLayout operators
             // a. sort areas by their coordinates
             var sortOp = new SortByPositionOperator();
             sortOp.apply(atree);
@@ -69,7 +74,7 @@ public class PDFLayoutAnalyzer
             var linesOp = new FindLineOperator(true, false, 0.9f);
             linesOp.apply(atree);
             
-            // 4. format leaf areas to stdout
+            // 5. format leaf areas to stdout
             var out = new AreaOutput(System.out);
             printAreas(atree.getRoot(), out);
             
